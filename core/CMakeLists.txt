@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 3.16)
 
+set(CMAKE_OSX_DEPLOYMENT_TARGET "10.14" CACHE STRING "Minimum OS X deployment version" FORCE)
+
 project(ONNXCore)
 
 # coreライブラリのインストール先設定。デフォルトはCMakeLists.txtと同じ位置
