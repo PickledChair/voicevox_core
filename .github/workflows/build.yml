@@ -169,6 +169,12 @@ jobs:
             g++-${{ matrix.cxx_version }}${{ env.ARCH_SUFFIX }} \
             cmake
 
+      - name: Install build dependencies (macOS)
+        if: startsWith(matrix.os, 'macos')
+        shell: bash
+        run: |
+          brew install gcc@11
+
       - name: Configure (Windows)
         if: startsWith(matrix.os, 'windows')
         shell: bash
@@ -180,7 +186,7 @@ jobs:
         if: startsWith(matrix.os, 'macos')
         shell: bash
         run: |
-          env CMAKE_OSX_ARCHITECTURES="x86_64;arm64" cmake -DONNXRUNTIME_DIR=download/onnxruntime ${{ matrix.cmake_additional_options }} .
+          env CMAKE_OSX_ARCHITECTURES="x86_64;arm64" cmake -DONNXRUNTIME_DIR=download/onnxruntime ${{ matrix.cmake_additional_options }} -DCMAKE_C_COMPILER=/usr/bin/gcc-11 -DCMAKE_CXX_COMPILER=/usr/bin/g++-11 .
 
       - name: Configure (Linux)
         if: startsWith(matrix.os, 'ubuntu')
